@@ -86,11 +86,26 @@ def main():
 
 def shortest_path(source, target):
 
-    frontier = StackFrontier()
-    
+    num_explored = 0
 
-    # TODO
-    raise NotImplementedError
+    start = Node(source, None, None)
+    frontier = StackFrontier()
+    frontier.add(start)
+
+    explored = set()
+
+    while True: 
+        if frontier.empty():
+            raise Exception('no solution')
+    
+        node = frontier.remove()
+        num_explored += 1
+
+        if node.state == target:
+            actions = []
+            cells = []
+
+
 
 
 def person_id_for_name(name):
