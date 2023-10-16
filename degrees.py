@@ -85,7 +85,6 @@ def main():
 
 
 def shortest_path(source, target):
-
     num_explored = 0
 
     start = Node(source, None, None)
@@ -95,16 +94,30 @@ def shortest_path(source, target):
     explored = set()
 
     while True: 
+        
         if frontier.empty():
-            raise Exception('no solution')
+            return None
     
         node = frontier.remove()
+        # print(neighbors_for_person(node.state))
         num_explored += 1
+        print(num_explored)
 
         if node.state == target:
-            actions = []
-            cells = []
+            degrees = []
+            while node.parent is not None:
+                degrees.append((node.action, node.state))
+                node = node.parent
+            degrees.reverse()
+            print(degrees)
+            return degrees
 
+        explored.add(node.state)
+
+        for action, state in neighbors_for_person(node.state):
+            if not frontier.contains_state(state) and state not in explored:
+                child = Node(state=state, parent=node, action=action)
+                frontier.add(child)
 
 
 
