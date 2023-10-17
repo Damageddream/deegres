@@ -88,7 +88,7 @@ def shortest_path(source, target):
     num_explored = 0
 
     start = Node(source, None, None)
-    frontier = StackFrontier()
+    frontier = QueueFrontier()
     frontier.add(start)
 
     explored = set()
@@ -101,7 +101,6 @@ def shortest_path(source, target):
         node = frontier.remove()
         # print(neighbors_for_person(node.state))
         num_explored += 1
-        print(num_explored)
 
         if node.state == target:
             degrees = []
@@ -109,21 +108,21 @@ def shortest_path(source, target):
                 degrees.append((node.action, node.state))
                 node = node.parent
             degrees.reverse()
-            print(degrees)
+            print(num_explored)
             return degrees
 
         explored.add(node.state)
 
         for action, state in neighbors_for_person(node.state):
             if not frontier.contains_state(state) and state not in explored:
-                if state == target:
-                    solution = []
-                    while node.parent is not None:
-                        solution.append((node.action, node.state))
-                        node = node.parent
-                    solution.reverse()
-                    print(solution)
-                    return solution               
+                # if state == target:
+                #     solution = []
+                #     while node.parent is not None:
+                #         solution.append((node.action, node.state))
+                #         node = node.parent
+                #     solution.reverse()
+                #     print(solution)
+                #     return solution               
                 child = Node(state=state, parent=node, action=action)
                 frontier.add(child)
 
